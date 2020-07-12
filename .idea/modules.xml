@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="switchTabView/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/switchTabView.iml" filepath="$PROJECT_DIR$/.idea/modules/switchTabView.iml" group="switchTabView" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/tabview/tabview.iml" filepath="$PROJECT_DIR$/.idea/modules/tabview/tabview.iml" group="switchTabView/tabview" />
+    </modules>
+  </component>
+</project>

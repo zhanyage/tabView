@@ -1,0 +1,3 @@
+include ':tabview'
+include ':app'
+rootProject.name = "switchTabView"

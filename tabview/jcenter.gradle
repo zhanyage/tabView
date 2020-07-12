@@ -1,0 +1,186 @@
+import java.text.SimpleDateFormat
+
+import static com.android.builder.model.AndroidProject.FD_OUTPUTS
+
+buildscript {
+    apply from: '../script.gradle', to: buildscript
+}
+
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+ext {
+    VERSION_NAME = rootProject.ext.versionName
+}
+
+String bintrayUser() {
+    return hasProperty('JCENTER_USER') ? JCENTER_USER : ""
+}
+
+String bintrayKey() {
+    return hasProperty('JCENTER_API_KEY') ? JCENTER_API_KEY : ""
+}
+
+String gpgPassword() {
+    return hasProperty('GPG_PASSWORD') ? GPG_PASSWORD : ""
+}
+
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging POM_PACKAGING
+                artifactId POM_ARTIFACT_ID
+                version VERSION_NAME
+                // Add your description here
+                name POM_NAME // 项目描述
+                description POM_DESCRIPTION
+                url POM_URL
+                // Set your license
+                licenses {
+                    license {
+                        name POM_LICENCE_NAME
+                        url POM_LICENCE_URL
+                    }
+                }
+                developers {
+                    developer {
+                        id DEVELOPER_ID // 填写开发者基本信息
+                        name DEVELOPER_NAME
+                        email DEVELOPER_EMAIL
+                    }
+                }
+                scm {
+                    connection POM_SCM_CONNECTION
+                    developerConnection POM_SCM_CONNECTION
+                    url POM_SCM_URL
+                }
+            }
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from fileTree(dir: "src", include: "main/java/com/qiyukf/unicorn/api/**/*")
+}
+
+task javadoc(type: Javadoc) {
+    failOnError false
+    source = files(["src/main/java/com/qiyukf/unicorn/api"])
+    options {
+        links "http://docs.oracle.com/javase/7/docs/api/"
+        linksOffline "http://d.android.com/reference", "${android.sdkDirectory}/docs/reference"
+        encoding "utf-8"
+        charSet "utf-8"
+    }
+//    classpath += project.android.libraryVariants.toList().first().javaCompile.classpath
+//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+bintray {
+    user = bintrayUser()
+    key = bintrayKey()
+
+    configurations = ['archives']
+    publish = false // 每次打发布包时上传，确认没问题后再手动publish
+
+    pkg {
+        repo = "maven" // 发布到Bintray的那个仓库里，默认账户有四个库，我们这里上传到maven库
+        group = POM_GROUP_ID
+        name = POM_NAME // 发布到Bintray上的项目名字
+        websiteUrl = POM_URL
+        vcsUrl = POM_SCM_URL
+        licenses = [POM_LICENCE_NAME]
+        version VERSION_NAME
+
+        version {
+            name = VERSION_NAME
+            desc = "Qiyu custom service Android SDK v${VERSION_NAME}"
+            released = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZ").format(new Date())
+
+            gpg {
+                passphrase = gpgPassword()
+                sign = true
+            }
+        }
+    }
+}
+
+android.libraryVariants.all { Object variant ->
+    updateAar(variant)
+}
+
+void updateAar(Object variant) {
+    if (variant.name.endsWith("release") || variant.name.endsWith("Release")) {
+        tasks.all { task ->
+            if (task.name == "bintrayUpload") {
+                println("task is ${task.path}")
+                task.dependsOn 'deploySdk'
+                task.doFirst {
+                    replaceAarWithShrinkedJar()
+                }
+            }
+        }
+    }
+}
+
+//生成一个没有 res 的 Aar
+void replaceAarWithShrinkedJar() {
+    File aar = file("${project.buildDir.absolutePath}/${FD_OUTPUTS}/aar/unicorn-release.aar")
+    File shrinkJar = file("../../unicorn-outputs/unicorn_jar/qiyu-sdk-${VERSION_NAME}.jar")
+
+    def classes_jar_file = 'classes.jar'
+    def classes_jar_base_sdk = 'libs/basesdk-*.jar'
+    def classes_jar_ysf_plugin = 'libs/ysf-1.0.0.jar'
+    def temp_aar_file = 'shrinked_unicorn'
+
+    copy {
+        from shrinkJar.absolutePath
+        into aar.parentFile
+        //把 qiyu-sdk-XXX 改为 classs.jar
+        rename { String fileName ->
+            fileName.replace(shrinkJar.name, classes_jar_file)
+        }
+    }
+
+    //把 qiyu-sdk-XXX.jar 生成名为 shrinked_unicorn.aar
+    Zip zip = tasks.create(name: "updateunicornAar", type: Zip) {
+        baseName temp_aar_file
+        extension 'aar'
+        version ''
+        from(zipTree(aar)) {
+            exclude classes_jar_file
+            exclude classes_jar_base_sdk
+            exclude classes_jar_ysf_plugin
+        }
+        from "${aar.parentFile}/${classes_jar_file}"
+        destinationDir aar.parentFile
+    }
+    zip.execute()
+
+    // rename
+    copy {
+        //从 shrinked_unicorn.aar 复制到 Unicorn.release.aar 的父路径，并重新命名 为 unicorn-release.aar
+        from "${aar.parentFile}/${temp_aar_file}.aar"
+        into aar.parentFile
+        rename { String fileName ->
+            fileName.replace(temp_aar_file, 'unicorn-release')
+        }
+    }
+
+    // delete temp file
+    file("${aar.parentFile}/${temp_aar_file}.aar").delete()
+    file("${aar.parentFile}/${classes_jar_file}").delete()
+}
