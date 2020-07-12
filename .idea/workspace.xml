@@ -10,7 +10,9 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f292560f-c2b5-46fc-8584-23d7c751787d" name="Default Changelist" comment="" />
+    <list default="true" id="f292560f-c2b5-46fc-8584-23d7c751787d" name="Default Changelist" comment="first push">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -261,18 +263,18 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="576" y="222" key="AndroidProcessChooserDialog/0.0.1440.900@0.0.1440.900" timestamp="1593915354168" />
-    <state x="305" y="53" key="CommitChangelistDialog2" timestamp="1594542285594">
+    <state x="305" y="53" key="CommitChangelistDialog2" timestamp="1594542763929">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="305" y="53" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1594542285594" />
+    <state x="305" y="53" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1594542763929" />
     <state width="462" height="466" key="DebuggerActiveHint" timestamp="1593915390569">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="462" height="466" key="DebuggerActiveHint/0.0.1440.900@0.0.1440.900" timestamp="1593915390569" />
-    <state x="144" y="79" key="DiffContextDialog" timestamp="1594542273846">
+    <state x="144" y="79" key="DiffContextDialog" timestamp="1594542761932">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="144" y="79" key="DiffContextDialog/0.0.1440.900@0.0.1440.900" timestamp="1594542273846" />
+    <state x="144" y="79" key="DiffContextDialog/0.0.1440.900@0.0.1440.900" timestamp="1594542761932" />
     <state width="1398" height="409" key="GridCell.Tab.0.bottom" timestamp="1594367567387">
       <screen x="1440" y="-157" width="1920" height="1057" />
     </state>
@@ -305,10 +307,10 @@
     <state width="1398" height="485" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1593915440962" />
     <state width="1398" height="409" key="GridCell.Tab.0.right/0.23.1440.812/1440.-157.1920.1057@1440.-157.1920.1057" timestamp="1594367567387" />
     <state width="1398" height="409" key="GridCell.Tab.0.right/0.23.1440.812/1440.-180.1920.1080@0.23.1440.812" timestamp="1594016336569" />
-    <state x="320" y="190" key="Vcs.Push.Dialog.v2" timestamp="1594542478343">
+    <state x="320" y="190" key="Vcs.Push.Dialog.v2" timestamp="1594542570720">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="320" y="190" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1594542478343" />
+    <state x="320" y="190" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1594542570720" />
     <state width="720" height="402" key="XDebugger.FullValuePopup" timestamp="1593915245118">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -322,11 +324,11 @@
     </state>
     <state x="287" y="318" width="709" height="486" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1594541538837" />
     <state x="1822" y="216" width="709" height="486" key="find.popup/0.23.1440.812/1440.-157.1920.1057@1440.-157.1920.1057" timestamp="1594367395095" />
-    <state width="433" height="61" key="javadoc.popup.new" timestamp="1594541360330">
+    <state width="433" height="61" key="javadoc.popup.new" timestamp="1594542841717">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="577" height="73" key="javadoc.popup.new/0.0.1440.900/1440.-180.1920.1080@1440.-180.1920.1080" timestamp="1593766089890" />
-    <state width="433" height="61" key="javadoc.popup.new/0.0.1440.900@0.0.1440.900" timestamp="1594541360330" />
+    <state width="433" height="61" key="javadoc.popup.new/0.0.1440.900@0.0.1440.900" timestamp="1594542841717" />
     <state width="577" height="71" key="javadoc.popup.new/0.23.1440.812/1440.-157.1920.1057@1440.-157.1920.1057" timestamp="1593764988331" />
     <state width="433" height="56" key="javadoc.popup.new/0.23.1440.812/1440.-180.1920.1080@0.23.1440.812" timestamp="1594016241146" />
     <state width="433" height="55" key="javadoc.popup.new/0.23.1440.812@0.23.1440.812" timestamp="1594538979328" />
